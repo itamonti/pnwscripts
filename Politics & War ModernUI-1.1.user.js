@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        Politics & War Modern UI (Dark/Purple Theme)
+// @name        Politics & War Modern UI
 // @namespace   yes
 // @version     1.9.3 // Infobar Basic Background
 // @description A highly modernized, card-based dark theme for Politics & War, with improved readability and consistency.
