@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name        Politics & War Modern UI (Dark/Purple Theme)
 // @namespace   yes
-// @version     2.0 // Full Redesign: Infobar Mobile Sticky + nationtable Enhanced Scroll
-// @description A highly modernized, card-based dark theme for Politics & War, with improved readability and consistency. Resource bar is fixed to bottom on mobile. Tables are optimized for horizontal scrolling.
+// @version     5.0 // Infobar Basic Background
+// @description A highly modernized, card-based dark theme for Politics & War, with improved readability and consistency.
 // @author      Monti
 // @match       https://politicsandwar.com/*
 // @grant       GM_addStyle
@@ -58,149 +58,21 @@
             padding-top: 30px !important;
         }
 
-        /* --- 3. Header & Navigation (General styles for both) --- */
-        .topnavigation, .informationbar.col-xs-12 {
+        .topnavigation {
             background: linear-gradient(to right, var(--color-bg-card), var(--color-bg-header)) !important;
             color: var(--color-text-light) !important;
-            margin-bottom: 30px; /* Default margin for desktop below header/info bar */
+            margin-bottom: 30px;
             border: none;
         }
 
-        /* --- Infobar / Resource Bar Redesign --- */
-        .informationbar.col-xs-12 {
-            border-radius: 12px !important;
-            padding: 10px 20px !important; /* Original padding */
-            min-height: 50px;
-            display: flex;
-            justify-content: flex-end; /* Push items to the right for desktop */
-            align-items: center;
-            border: 1px solid var(--color-border) !important;
-            box-sizing: border-box;
-            z-index: 100;
-            max-width: 100vw !important;
-
-            /* Base sticky for desktop */
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        /* Container for resources inside the infobar (the span with float:right) */
-        .informationbar > span[style="float:right;"] {
-            float: none !important; /* Override inline float */
-            display: flex; /* Use flexbox for resource items */
-            flex-wrap: nowrap; /* Prevent wrapping on desktop, keep on one line */
-            align-items: center;
-            gap: 10px; /* Space between resource items */
-            padding-right: 0px; /* Adjust spacing */
-            padding-left: 0px; /* Adjust spacing */
-            height: 100%;
-            overflow: visible !important; /* Important for existing tooltips */
-            /* Ensure the text content is part of the flex flow, not just the <a> */
-            line-height: 1.2; /* Tighter line-height for combined icon/text */
-        }
-
-        /* Styling for the resource icons and values */
-        .informationbar > span[style="float:right;"] > a {
-            display: flex; /* Make the <a> a flex container for its image */
-            align-items: center; /* Vertically align icon with value/text */
-            text-decoration: none;
-            color: var(--color-text-primary);
-            font-size: 14px; /* Default font size for values */
-            font-weight: 600;
-            padding: 4px 0;
-            white-space: nowrap;
-            transition: color 0.2s ease-in-out;
-            margin-right: 0px; /* Remove default margin */
-            flex-shrink: 0;
-        }
-        /* Style the actual numbers/text after the <a> tag */
-        .informationbar > span[style="float:right;"] > a + span,
-        .informationbar > span[style="float:right;"] > a + b,
-        .informationbar > span[style="float:right;"] > a + *:not(a) {
-            margin-left: 5px; /* Space between icon and value */
-            margin-right: 5px; /* Space after value, before next icon */
-            color: var(--color-accent-yellow); /* Default color for values */
-            font-weight: 800;
-            font-size: 15px; /* Default size for values */
-            white-space: nowrap;
-            display: inline-block; /* Ensure it stays inline with icon but takes content size */
-            vertical-align: middle; /* Align with icon */
-        }
-
-        /* Adjust specific styling for money value */
-        .informationbar > span[style="float:right;"] > a[aria-label="Money"] + b {
-            color: var(--color-accent-green) !important;
-            font-size: 17px;
-            margin-right: 0px !important; /* Remove extra margin after money for compactness */
-        }
-
-        /* Adjust icon size */
-        .informationbar img {
-            width: 18px !important;
-            height: 18px !important;
-            vertical-align: middle;
-            margin-right: 0px !important; /* Remove default margin from img */
-        }
-
-        /* Hover effects for resource items */
-        .informationbar > span[style="float:right;"] > a:hover,
-        .informationbar > span[style="float:right;"] > a:focus {
-            color: var(--color-accent-blue) !important;
-        }
-        .informationbar > span[style="float:right;"] > a:hover + span,
-        .informationbar > span[style="float:right;"] > a:hover + b,
-        .informationbar > span[style="float:right;"] > a:hover + *:not(a) {
-            color: var(--color-accent-blue) !important;
-        }
-
-
-        /* --- Mobile-Specific Infobar Adjustments (Sticky Bottom Bar) --- */
-        @media (max-width: 768px) { /* Mobile breakpoint */
-            .informationbar.col-xs-12 {
-                position: fixed !important; /* Force fixed position */
-                bottom: 0 !important; /* Stick to bottom */
-                top: auto !important; /* Override top:0 */
-                left: 0 !important; /* Full width */
-                width: 100% !important;
-                margin-bottom: 0 !important; /* No margin below */
-                border-radius: 12px 12px 0 0 !important; /* Rounded top corners */
-                border-bottom: none !important; /* No bottom border */
-                border-top: 1px solid var(--color-border) !important; /* Add top border */
-                padding: 5px 10px !important; /* More compact padding */
-                justify-content: flex-start; /* Align contents to start for scrolling */
-                overflow: hidden; /* Hide anything outside its bounds */
-            }
-
-            .informationbar > span[style="float:right;"] {
-                overflow-x: auto !important; /* Enable horizontal scrolling for resources */
-                -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-                flex-wrap: nowrap !important; /* Force resources onto one line */
-                width: 100%; /* Take full width of the scrollable area */
-                justify-content: flex-start; /* Align resources to the left in the scrollable area */
-            }
-
-            /* Adjust individual resource item appearance on mobile */
-            .informationbar > span[style="float:right;"] > a {
-                padding: 3px 5px; /* More compact for mobile touch */
-                font-size: 13px; /* Slightly smaller font */
-            }
-            .informationbar > span[style="float:right;"] > a + span,
-            .informationbar > span[style="float:right;"] > a + b,
-            .informationbar > span[style="float:right;"] > a + *:not(a) {
-                font-size: 14px; /* Adjust value size */
-                margin-left: 3px; /* Tighter spacing */
-                margin-right: 3px;
-            }
-            .informationbar img {
-                width: 20px !important; /* Slightly larger icons for touch targets */
-                height: 20px !important;
-            }
-            .informationbar > span[style="float:right;"] > a[aria-label="Money"] + b {
-                font-size: 16px; /* Money value adjusted for mobile */
-            }
-        }
-        /* --- End Infobar Redesign --- */
+.informationbar.col-xs-12 {
+    background-color: var(--color-bg-header) !important;
+    background-image: none !important;
+    border-radius: 20px !important;
+    border: 1px solid var(--color-border) !important;
+    box-sizing: border-box;
+    overflow: hidden;
+}
 
 
         .topnavigation {
@@ -411,7 +283,6 @@
             margin-top: 15px !important;
         }
 
-        /* Ensure help paragraphs are hidden by default */
         p.alert.alert-info.help,
         .uniqueidhelp
         {
@@ -461,14 +332,13 @@
         .btn-group.btn-group-xs.visible-xs { margin-top: 15px; gap: 8px; }
         .btn-group.btn-group-xs.visible-xs .btn { padding: 10px 15px; font-size: 0.9em; }
 
-        /* --- nationtable Desktop Base Styling --- */
         table.nationtable {
             background-color: var(--color-bg-card) !important;
             border-radius: 15px !important;
             border: 1px solid var(--color-border) !important;
             margin-top: 30px;
             margin-bottom: 30px;
-            overflow: hidden; /* Helps clip table content to rounded corners on desktop */
+            overflow: visible !important;
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
@@ -481,18 +351,15 @@
             padding: 18px 25px !important;
             font-size: 1.25em !important;
             border-bottom: 2px solid var(--color-accent-blue) !important;
+            border-radius: 12px 12px 0 0 !important;
             text-align: left !important;
             font-weight: 800 !important;
             text-transform: uppercase;
             letter-spacing: 1px;
-            position: sticky; /* Keep headers sticky on vertical scroll */
+            position: sticky;
             top: 0;
             z-index: 1;
         }
-        /* Ensure the first row of headers has rounded corners */
-        table.nationtable tr:first-child th:first-child { border-top-left-radius: 12px !important; }
-        table.nationtable tr:first-child th:last-child { border-top-right-radius: 12px !important; }
-
 
         table.nationtable td {
             padding: 15px 25px !important;
@@ -503,142 +370,297 @@
 
         table.nationtable tr:last-child td { border-bottom: none !important; }
         table.nationtable tbody tr:hover { background-color: var(--color-bg-header) !important; }
+        table.nationtable .bold { color: var(--color-accent-blue) !important; font-weight: 700 !important; }
+        table.nationtable img[style*="max-width:50px"] { border-radius: 8px !important; }
+        table.nationtable td a { color: var(--color-accent-blue) !important; text-decoration: none !important; }
+        table.nationtable td a:hover { color: var(--color-accent-purple) !important; text-decoration: underline !important; }
+        table.nationtable td.notranslate { font-weight: 500; color: var(--color-text-light) !important; }
 
-        /* Existing text alignment classes */
-        table.nationtable .center { text-align: center !important; }
-        table.nationtable .right { text-align: right !important; }
+        table.nationtable tr.bold td {
+            color: var(--color-accent-green) !important;
+            font-weight: 800 !important;
+            font-size: 1.1em;
+            background-color: rgba(var(--color-accent-green), 0.05) !important;
+        }
+        table.nationtable tr.bold td:first-child { border-right: 1px solid rgba(var(--color-border), 0.5) !important; }
 
-        /* Make flag images within table cells smaller and aligned */
-        table.nationtable img.tinyflag {
-            width: 20px !important;
-            height: 12px !important;
-            vertical-align: middle;
-            margin-left: 5px;
-            border-radius: 2px;
-            object-fit: cover;
+        table.nationtable th i.fa { margin-right: 10px; color: var(--color-accent-blue); font-size: 1.1em; }
+
+        table.nationtable td .fa-info-circle { color: var(--color-text-muted) !important; margin-left: 5px; font-size: 0.9em; }
+        table.nationtable td .fa-info-circle:hover { color: var(--color-accent-blue) !important; }
+
+        table.nationtable button[onclick*="copy"] {
+            background-color: var(--color-border) !important;
+            border: 1px solid var(--color-accent-blue) !important;
+            color: var(--color-text-light) !important;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        table.nationtable button[onclick*="copy"]:hover {
+            background-color: var(--color-accent-blue) !important;
+            color: var(--color-bg-card) !important;
         }
 
-        /* Specific styling for the 'Color' column image (if applicable) */
-        table.nationtable td:nth-of-type(5) img[src*="colors/"] { /* Target color swatch specifically */
-            width: 18px !important;
-            height: 18px !important;
-            border-radius: 50% !important;
-            border: 1px solid var(--color-border);
+        .city-more-btn-container {
+            padding: 15px 20px !important;
+            text-align: center;
+            background-color: var(--color-bg-header);
+            border-top: 1px solid var(--color-border);
+            border-radius: 0 0 12px 12px;
+        }
+        #showextracities {
+            background-color: var(--color-text-muted) !important;
+            border-color: var(--color-accent-blue) !important;
+            color: var(--color-text-light) !important;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        #showextracities:hover {
+            background-color: var(--color-accent-blue) !important;
+            color: var(--color-bg-card) !important;
         }
 
-        /* --- Mobile-Specific nationtable Adjustments for Enhanced Horizontal Scrolling --- */
-        @media (max-width: 768px) { /* Standard mobile breakpoint */
-            /* Make the .pw-table wrapper scrollable horizontally */
-            .pw-table {
-                overflow-x: auto !important; /* Enable horizontal scrolling */
-                -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-                width: 100% !important;
-                /* Keep the border-radius, border, and box-shadow on the .pw-table container */
-                border-radius: 15px !important; /* Retain border-radius for the scrollable area */
-                border: 1px solid var(--color-border) !important;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                position: relative; /* For scroll shadows */
-                /* Ensure its immediate children are not impacting the scrollability negatively */
-                display: block; /* Make it a block container for overflow-x */
-            }
-
-            /* Remove table's own aesthetics if they duplicate the wrapper */
-            table.nationtable {
-                width: fit-content !important; /* Allow table to be wider than its container */
-                min-width: 100% !important; /* Ensure table stretches to fill if content is small */
-                border: none !important; /* Remove individual table border */
-                box-shadow: none !important; /* Remove individual table shadow */
-                border-radius: 0 !important; /* Remove individual table border-radius */
-                border-spacing: 0; /* Keep cell spacing */
-                border-collapse: separate; /* Keep separate for rounded th/td if desired */
-            }
-
-            /* Prevent text wrapping within cells on mobile to force horizontal scroll */
-            table.nationtable th,
-            table.nationtable td {
-                white-space: nowrap !important; /* Critical: prevents text from wrapping */
-                padding: 10px 15px !important; /* Slightly more compact padding */
-                font-size: 0.9em !important; /* Slightly smaller font for more columns visibility */
-                min-width: 70px; /* Minimum width for readability per column on small screens */
-            }
-
-            /* Sticky First Column (Rank/Nation/Leader) - VERY TRICKY, MAY NOT BE PERFECT ACROSS ALL TABLES */
-            table.nationtable th:first-child,
-            table.nationtable td:first-child {
-                position: sticky !important;
-                left: 0 !important;
-                z-index: 2; /* Higher than regular table cells */
-                background-color: var(--color-bg-header) !important; /* Ensure background is solid for sticky effect */
-                box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Shadow to separate it from scrolling content */
-            }
-
-            /* Ensure rounded corners for the first sticky header are correct */
-            table.nationtable tr:first-child th:first-child {
-                border-top-left-radius: 12px !important;
-                /* No border-bottom-left-radius: 0 needed here as it applies to the header row */
-            }
-            /* Add border-radius for the bottom-left of the *last* sticky cell in the tbody */
-            table.nationtable tbody tr:last-child td:first-child {
-                border-bottom-left-radius: 12px !important;
-            }
-
-
-            /* Adjust specific elements if their default behavior changes with nowrap/flex */
-            /* For Nation/Leader column where content needs to wrap/stack */
-            table.nationtable td:nth-child(2) {
-                white-space: normal !important; /* Allow content to wrap within this cell */
-                min-width: 150px; /* Give it more room as it has multiple lines */
-            }
-            table.nationtable td:nth-child(2) br { /* Force line break for Nation Name / Leader */
-                display: block !important;
-            }
-            table.nationtable td:nth-child(2) a,
-            table.nationtable td:nth-child(2) span {
-                /* Ensure these components inside the cell align well when wrapped */
-                display: inline-block !important; /* Keep as inline-block for side-by-side components */
-            }
-
-            /* Visual Scroll Indicators (Shadows) */
-            .pw-table::before,
-            .pw-table::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                pointer-events: none;
-                z-index: 2; /* Above table content */
-                border-radius: 15px; /* Inherit the container's rounded corners */
-            }
-
-            /* Left shadow (subtle, always visible hint) */
-            .pw-table::before {
-                left: 0;
-                width: 20px;
-                background: linear-gradient(to right, rgba(0,0,0,0.4), transparent);
-                opacity: 0.5; /* A subtle, consistent hint */
-            }
-
-            /* Right shadow (more prominent, always visible hint) */
-            .pw-table::after {
-                right: 0;
-                width: 20px;
-                background: linear-gradient(to left, rgba(0,0,0,0.4), transparent);
-                opacity: 1; /* More prominent on the right side */
-            }
+        p[style*="text-align:justify;"]#reply, #descCollapseDiv {
+            background-color: var(--color-bg-card);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0 !important;
+            border: 1px solid var(--color-border) !important;
+            line-height: 1.7;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-        /* --- End nationtable Redesign --- */
+        p[style*="text-align:justify;"]#reply .notranslate { color: var(--color-text-primary) !important; }
+        #descCollapseDiv hr { border-top: 1px solid rgba(var(--color-border), 0.5) !important; margin: 20px 0; }
+        #descCollapseDiv img { border-radius: 8px; max-width: 100%; height: auto; }
 
-        /* General pw-table styles - applying to all tables wrapped in .pw-table */
-        .pw-table th { /* This applies to desktop and mobile unless overridden */
+        .modal-content, .pw-modal-content {
+            background-color: var(--color-bg-card) !important;
+            color: var(--color-text-primary) !important;
+            border: 1px solid var(--color-border) !important;
+            border-radius: 12px !important;
+        }
+        .modal-header, .pw-modal .flex.px-2.pb-2 {
+            background-color: var(--color-bg-header) !important;
+            border-bottom: 1px solid var(--color-border) !important;
+            color: var(--color-text-light) !important;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 15px 20px;
+        }
+        .modal-title, .pw-title-2xl {
+            color: var(--color-text-light) !important;
+            font-weight: 700;
+            font-size: 1.5em;
+        }
+        .modal-footer {
+            background-color: var(--color-bg-header) !important;
+            border-top: 1px solid var(--color-border) !important;
+            border-radius: 0 0 10px 10px !important;
+            padding: 15px 20px;
+        }
+        .modal-body {
+            background-color: var(--color-bg-card) !important;
+            color: var(--color-text-primary) !important;
+            padding: 20px;
+        }
+        .pw-btn-bg-on-hover {
+            background-color: transparent !important;
+            color: var(--color-text-primary) !important;
+            border: none !important;
+        }
+        .pw-btn-bg-on-hover:hover {
+            background-color: rgba(66,135,245,0.1) !important;
+            color: var(--color-accent-blue) !important;
+        }
+        .pw-btn-bg-on-hover svg { stroke: var(--color-text-primary) !important; }
+        .pw-btn-bg-on-hover:hover svg { stroke: var(--color-accent-blue) !important; }
+        .pw-modal [data-tab] {
+            background-color: var(--color-bg-header) !important;
+            color: var(--color-text-primary) !important;
+            border: 1px solid var(--color-border) !important;
+            border-bottom: none !important;
+            border-radius: 8px 8px 0 0 !important;
+            padding: 10px 15px !important;
+            font-weight: 600;
+        }
+        .pw-modal [data-tab]:hover { background-color: var(--color-border) !important; color: var(--color-text-light) !important; }
+        .pw-modal [data-tab].pw-active-tab {
+            background-color: var(--color-bg-card) !important;
+            color: var(--color-accent-blue) !important;
+            border-color: var(--color-accent-blue) !important;
+            border-bottom: 2px solid var(--color-accent-blue) !important;
+            margin-bottom: -1px;
+        }
+        .pw-modal [data-tab-content] {
+            background-color: var(--color-bg-card) !important;
+            border: 1px solid var(--color-border) !important;
+            border-radius: 0 0 8px 8px !important;
+            padding: 20px !important;
+        }
+        .pw-alert-purple {
+            background-color: #6a4c93 !important;
+            color: #fff !important;
+            border-color: #8c5cdb !important;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-weight: 500;
+        }
+        .prose, .prose p, .prose li { color: var(--color-text-primary) !important; }
+        .prose h3 { color: var(--color-accent-blue) !important; font-weight: 700; }
+        .prose a { color: var(--color-accent-blue) !important; text-decoration: underline !important; }
+
+        .panel-body .js-plotly-plot,
+        .box > div > .js-plotly-plot,
+        .panel > div > .js-plotly-plot { background-color: transparent !important; }
+        div.panel, div.box {
+            background-color: var(--color-bg-card) !important;
+            border-radius: 15px !important;
+            border: 1px solid var(--color-border) !important;
+            margin-top: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        div.panel-body, div.box-body {
+            padding: 25px !important;
+            color: var(--color-text-primary) !important;
+            background-color: transparent !important;
+        }
+        .js-plotly-plot {
+            width: 100% !important;
+            height: 300px !important;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+        .js-plotly-plot .plotly, .js-plotly-plot .main-svg {
+            background: transparent !important;
+            border-radius: 10px;
+            overflow: hidden;
+            border: none !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
+        .js-plotly-plot .bglayer {
+            fill: transparent !important;
+        }
+        .js-plotly-plot .legend .bg {
+            fill: var(--color-bg-header) !important;
+            stroke: var(--color-border) !important;
+            border-radius: 5px;
+        }
+        .js-plotly-plot .xtick text, .js-plotly-plot .ytick text, .js-plotly-plot .legendtext {
+            fill: var(--color-text-primary) !important;
+            font-family: inherit !important;
+            font-size: 11px !important;
+        }
+        .js-plotly-plot .xgrid, .js-plotly-plot .ygrid {
+            stroke: rgba(var(--color-text-primary), 0.15) !important;
+        }
+        .js-plotly-plot .zerolinelayer path {
+            stroke: var(--color-text-muted) !important;
+            stroke-width: 1px !important;
+        }
+        .js-plotly-plot .lines path {
+            filter: none;
+            stroke-width: 2px !important;
+        }
+        .js-plotly-plot .fills path {
+            filter: brightness(1.1) saturate(1.1);
+        }
+        .js-plotly-plot .modebar-container .modebar {
+            background-color: rgba(var(--color-bg-header),0.8) !important;
+            border: 1px solid rgba(var(--color-border),0.5);
+            border-radius: 5px;
+        }
+        .js-plotly-plot .modebar-btn svg {
+            fill: var(--color-text-primary) !important;
+        }
+        .js-plotly-plot .modebar-btn.active svg, .js-plotly-plot .modebar-btn:hover svg {
+            fill: var(--color-accent-blue) !important;
+        }
+        .js-plotly-plot .modebar-btn[data-title="Produced with Plotly"] svg .cls-1 {
+            fill: var(--color-bg-card) !important;
+        }
+        .js-plotly-plot .modebar-btn[data-title="Produced with Plotly"] svg .cls-2 {
+            fill: var(--color-accent-blue) !important;
+        }
+        .js-plotly-plot .modebar-btn[data-title="Produced with Plotly"] svg .cls-3 {
+            fill: var(--color-text-primary) !important;
+        }
+
+        #nation-map {
+            width: 100% !important;
+            height: 300px !important;
+            border-radius: 10px !important;
+            overflow: hidden !important;
+            border: 1px solid var(--color-border) !important;
+            margin-top: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        #nation-map .ol-viewport {
+            background-color: transparent !important;
+        }
+        #nation-map .ol-control button {
+            background-color: var(--color-border) !important;
+            color: var(--color-text-primary) !important;
+            border-radius: 6px;
+        }
+        #nation-map .ol-control button:hover {
+            background-color: var(--color-text-muted) !important;
+        }
+        #nation-map canvas {
+            background-color: #1a2a3a !important;
+        }
+        .ol-layer.ol-layer-vector canvas {
+            filter: brightness(0.95) contrast(1.05);
+        }
+        .ol-layer:not(.ol-layer-vector) canvas {
+            filter: brightness(0.8) saturate(1.05);
+        }
+
+        .pw-table {
+            background-color: var(--color-bg-card) !important;
+            border-radius: 15px !important;
+            border: 1px solid var(--color-border) !important;
+            margin-bottom: 25px !important;
+            overflow: hidden;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .pw-table table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            color: var(--color-text-primary);
+        }
+
+        .pw-table th {
             background: linear-gradient(to right, var(--color-bg-header), var(--color-border)) !important;
             color: var(--color-text-light) !important;
+            padding: 15px 20px !important;
+            font-size: 1.1em !important;
+            text-align: left;
             font-weight: 700 !important;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .pw-table tr:first-child th {
+            border-radius: 12px 12px 0 0 !important;
+            border-bottom: 2px solid var(--color-accent-blue) !important;
         }
 
         .pw-table td {
-            color: var(--color-text-primary) !important;
+            padding: 12px 20px !important;
+            border-bottom: 1px solid rgba(var(--color-border), 0.5) !important;
+            vertical-align: middle;
         }
-
+        .pw-table tbody tr:last-child td {
+            border-bottom: none !important;
+        }
         .pw-table tbody tr:hover {
             background-color: var(--color-bg-header) !important;
         }
@@ -790,12 +812,12 @@
             stroke: var(--color-text-light) !important;
         }
         .pw-card .pw-btn-red svg {
-             color: var(--color-text-light) !important;
-             stroke: var(--color-text-light) !important;
+            color: var(--color-text-light) !important;
+            stroke: var(--color-text-light) !important;
         }
         .pw-card .pw-btn-green svg {
-             color: var(--color-text-light) !important;
-             stroke: var(--color-text-light) !important;
+            color: var(--color-text-light) !important;
+            stroke: var(--color-text-light) !important;
         }
 
         .pw-card input[type="text"] {
@@ -912,7 +934,6 @@
             z-index: 100000 !important;
             pointer-events: none !important;
         }
-        /* Specific tooltip styles from your original script */
         .tooltip-inner {
             background-color: var(--color-bg-header) !important;
             color: var(--color-text-light) !important;
@@ -951,7 +972,6 @@
             border-left-color: var(--color-border) !important;
         }
 
-        /* General Overflow Overrides to prevent clipping of tooltips/popovers */
         body > div,
         body > div > div,
         .row,
@@ -959,7 +979,7 @@
         .panel, .panel-body, .box, .box-body, .widget, .card, .pw-card,
         [id*="content"], [class*="content-"]
         {
-             overflow: visible !important;
+            overflow: visible !important;
         }
     `);
 })();
