@@ -33,7 +33,7 @@ To use these user scripts, you'll need a browser extension like Tampermonkey (fo
 
 2.  **Install the Theme:**
 
-      * Click on the `Politics_War_Modern_UI_Dark_Purple.user.js` file in this repository.
+      * Click on the `Politics_War_Modern_UI.user.js` file in this repository.
       * Click the "Raw" button to open the script.
       * Tampermonkey will detect the script and prompt you to install it. Click "Install".
 
